@@ -1,0 +1,22 @@
+import numpy as np
+
+def is_rotation_matrix(R, tol=1e-5):
+    # Check if the determinant is close to 1
+    if not np.isclose(np.linalg.det(R), 1, atol=tol):
+        return False
+    
+    # Check if the matrix multiplied by its transpose is close to the identity matrix
+    identity_approx = np.dot(R, R.T)
+    identity_true = np.eye(3)
+    
+    if not np.allclose(identity_approx, identity_true, atol=tol):
+        return False
+    
+    return True
+
+# Example usage:
+R_example = np.array([[0.7071, -0.7071, 0],
+                      [0.7071, 0.7071, 0],
+                      [0, 0, 1]])
+
+print(is_rotation_matrix(R_example))
